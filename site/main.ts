@@ -1,24 +1,35 @@
 import init, { init_world, World } from "../pkg/simulation_wasm.js";
-//import {memory} from '../pkg/simulation_wasm_bg.wasm'
+
+const CELL_SIZE = 5;
+const GROUND_TILE_COLOR = [0, 0, 0];
+
 init()
-    .then(obj => {
+    .then(webAssemblyObject => {
         // here we go!
         const xSize = 3, ySize = 4;
         let world: World = init_world(xSize, ySize);
-        const canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
 
-        let context: CanvasRenderingContext2D = canvas.getContext("2d");
+        const context = getRenderingContext();
 
         const renderLoop = () => {
             world.move_by_x_ticks(1);
-            drawWorld(world, context, xSize, ySize, obj.memory.buffer);
+            drawWorld(world, context, xSize, ySize, webAssemblyObject.memory.buffer);
 
             requestAnimationFrame(renderLoop);
         }
         renderLoop()
 
     })
-const CELL_SIZE = 5;
+
+function getRenderingContext() {
+    const canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
+
+    let context: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    if (typeof context === "undefined") {
+        throw new Error("Canvas doesn't have 2D context")
+    }
+    return context as CanvasRenderingContext2D;
+}
 
 function drawWorld(world: World, context: CanvasRenderingContext2D, width: number, height: number, memBuffer: ArrayBuffer) {
     let ptr: number = world.get_pixels_pointer()
