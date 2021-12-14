@@ -2,3 +2,4 @@
 /pkg
 Cargo.lock
 .vscode
+/enum_variant_counter/target/

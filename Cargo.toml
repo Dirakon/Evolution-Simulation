@@ -10,13 +10,19 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib"]
 
+
 [dependencies]
+
+# Random
 getrandom = { version = "0.2", features = ["js"] }
-rand = "0.8.4"
+rand = "0.8"
 
 # For the web assembly itself
 wasm-bindgen = "0.2"
 
-# For the use of enums...
-num-traits = "0.2.14"
-num-derive = "0.3.3"
+# For the use of enums
+num-traits = "0.2"
+num-derive = "0.3"
+
+# For amount of enum variants
+enum_variant_counter = {path = "./enum_variant_counter"}
