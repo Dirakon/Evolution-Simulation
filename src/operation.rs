@@ -1,11 +1,10 @@
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use rand::prelude::*;
-use enum_variant_counter::EnumVariantCount;
 
 const MIN_OPERATION_DESCRIPTOR: i32 = 0;
 const MAX_OPERATION_DESCRIPTOR: i32 = 1024;
-#[derive(FromPrimitive, Copy, Clone,EnumVariantCount)]
+#[derive(FromPrimitive, Copy, Clone)]
 pub enum Operation {
     Sleep = 0,
     Move = 1,
@@ -21,8 +20,8 @@ pub enum Operation {
     Bite = 11,
     // TODO: finish commands
 }
-
-const LAST_OPERATION_INDEX: i32 = LENGTH as i32 - 1;
+//TODO: research macros and find a way to calculate this const automatically
+const last_operation_index: i32 = 11;
 
 impl Operation {
     pub fn get_random_operation_descriptor() -> i32 {
@@ -30,7 +29,7 @@ impl Operation {
     }
 
     pub fn get_random_operation() -> Operation {
-        let operation_code = rand::thread_rng().gen_range(0..=LAST_OPERATION_INDEX);
+        let operation_code = rand::thread_rng().gen_range(0..=last_operation_index);
         Operation::number_to_operation(operation_code)
     }
 

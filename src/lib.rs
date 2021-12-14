@@ -1,5 +1,3 @@
-extern crate quote;
-
 pub mod color;
 pub mod command;
 pub mod entity;
