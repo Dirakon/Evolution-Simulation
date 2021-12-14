@@ -1,17 +1,12 @@
-pub mod world;
 pub mod color;
+pub mod command;
 pub mod entity;
 pub mod genetic_code;
-pub mod command;
+pub mod operation;
+pub mod world;
+pub mod direction;
 
-extern crate serde_json;
-extern crate wasm_bindgen;
-use std::mem;
 use wasm_bindgen::prelude::*;
-extern crate console_error_panic_hook;
-
-#[macro_use]
-extern crate serde_derive;
 
 #[wasm_bindgen]
 extern "C" {

@@ -11,12 +11,12 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
+getrandom = { version = "0.2", features = ["js"] }
 rand = "0.8.4"
+
+# For the web assembly itself
 wasm-bindgen = "0.2"
-queues = "1.1.0"
-serde_json = "1.0.72"
-console_error_panic_hook = "0.1.7"
+
+# For the use of enums...
 num-traits = "0.2.14"
 num-derive = "0.3.3"
-serde_derive = "1.0.131"
-serde = { version = "1.0", features = ["derive"] }
