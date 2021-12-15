@@ -19,7 +19,7 @@ pub enum Operation {
     MoveTapeByIfEmptyAhead = 9,
     GiveBirth = 10,
     Bite = 11,
-    // TODO: finish commands
+    // TODO: perhaps think of more commands
 }
 
 const LAST_OPERATION_INDEX: i32 = LENGTH as i32 - 1;

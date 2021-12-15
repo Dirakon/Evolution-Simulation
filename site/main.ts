@@ -1,12 +1,11 @@
 import init, { init_world, World } from "../pkg/simulation_wasm.js";
 
 const CELL_SIZE = 5;
-const GROUND_TILE_COLOR = [0, 0, 0];
 
 init()
     .then(webAssemblyObject => {
         // here we go!
-        const xSize = 3, ySize = 4;
+        const xSize = 8, ySize = 8;
         let world: World = init_world(xSize, ySize);
 
         const context = getRenderingContext();
@@ -31,10 +30,11 @@ function getRenderingContext() {
     return context as CanvasRenderingContext2D;
 }
 
+const BYTES_PER_CELL = 4;
 function drawWorld(world: World, context: CanvasRenderingContext2D, width: number, height: number, memBuffer: ArrayBuffer) {
-    let ptr: number = world.get_pixels_pointer()
+    let ptr: number = world.get_cells_pointer()
 
-    const mem = new Uint8Array(memBuffer, ptr, width * height * 3);
+    const mem = new Uint8Array(memBuffer, ptr, width * height * BYTES_PER_CELL);
 
     context.beginPath();
 
@@ -56,7 +56,19 @@ function drawWorld(world: World, context: CanvasRenderingContext2D, width: numbe
 
 }
 
+
+const ENTITY = 0, GROUND = 1, FOOD = 2;
+const GROUND_COLOR = "green";
+const FOOD_COLOR = "yellow";
 function getColor(x: number, y: number, width: number, mem: Uint8Array) {
-    const index = (y * width + x) * 3;
-    return `rgb(${mem[index]}, ${mem[index + 1]}, ${mem[index + 2]})`
+    const index = (y * width + x) * BYTES_PER_CELL;
+    if (mem[index] == GROUND) {
+        return GROUND_COLOR;
+    } else if (mem[index] == FOOD) {
+        return FOOD_COLOR;
+    } else if (mem[index] == ENTITY) {
+        return `rgb(${mem[index+1]}, ${mem[index + 2]}, ${mem[index + 3]})`
+    } else {
+        throw new Error("Unknown cell type!");
+    }
 }

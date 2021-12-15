@@ -5,7 +5,11 @@ pub mod genetic_code;
 pub mod operation;
 pub mod world;
 pub mod direction;
-
+pub mod tests;
+pub mod cell_type;
+pub mod cell;
+pub mod entity_action;
+pub mod entity_context;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

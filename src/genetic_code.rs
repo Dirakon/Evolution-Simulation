@@ -1,5 +1,5 @@
 pub use crate::command::Command;
-
+pub use crate::color::Color;
 
 /* parameters for manipulation with genetic code, later can be moved on JS side */
 const GENETIC_CODE_SIZE:usize = 256;
@@ -10,6 +10,11 @@ pub struct GeneticCode {
 }
 
 impl GeneticCode {
+
+    pub fn hash_code_into_color(&self)->Color{
+        //TODO: hashing algorithm
+        Color(0,0,0)
+    }
     pub fn get_random_genetic_code() -> GeneticCode {
         GeneticCode {
             genetic_tape:(0..GENETIC_CODE_SIZE).map(|_| Command::new_random_command()).collect(),
