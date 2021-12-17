@@ -2,6 +2,8 @@ pub use crate::cell::Cell;
 pub use crate::cell_type::CellType;
 pub use crate::color::Color;
 pub use crate::entity::Entity;
+pub use crate::entity_action::EntityAction;
+pub use crate::entity_context::EntityContext;
 pub use crate::operation::Operation;
 extern crate wasm_bindgen;
 
@@ -26,10 +28,28 @@ impl World {
     pub fn move_by_x_ticks(&mut self, ticks: u32) {
         for tick in 0..ticks {
             //TODO: finish implementing actual simulation tick
-            for entity in &mut self.entities{
-                entity.make_move( 0);
+            for entity in &mut self.entities {
+                let action = entity.make_move(
+                    &World::generate_context_for_entity(entity.pos_x, entity.pos_y),
+                    0,
+                );
+                match action.attack_direction {
+                    Some(dir) => { // TODO: implement effect of entity attack
+                    }
+                };
+                match action.spawn_direction {
+                    Some(dir) => { // TODO: implement effect of entity giving birth
+                    }
+                };
+                match action.move_direction {
+                    Some(dir) => { // TODO: implement effect of entity move
+                    }
+                };
             }
         }
+    }
+    fn generate_context_for_entity(pos_x: i32, pos_y: i32) -> EntityContext {
+        // TODO: implement context generation with respect to map corners/sidesEntityContext
     }
     #[wasm_bindgen]
     pub fn get_cells_pointer(&self) -> *const Cell {
@@ -55,7 +75,7 @@ impl World {
         let (x_pos, y_pos) = self.get_random_position();
         let cell_to_occupy = self.get_cell(x_pos, y_pos);
         match cell_to_occupy.cell_type {
-            CellType::Entity => {return}, // TODO: decide with logic in this case
+            CellType::Entity => return, // TODO: decide with logic in this case
             _ => {
                 let entity = Entity::new_with_random_genes(x_pos, y_pos);
                 self.set_cell(
