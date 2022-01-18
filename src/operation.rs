@@ -7,16 +7,16 @@ const MIN_OPERATION_DESCRIPTOR: i32 = 0;
 const MAX_OPERATION_DESCRIPTOR: i32 = 1024;
 #[derive(FromPrimitive, Copy, Clone,EnumVariantCount)]
 pub enum Operation {
-    Sleep = 0,
-    Move = 1,
-    RotateLeftBy = 2,
-    RotateRightBy = 3,
-    MoveTapeBy = 4,
-    MoveTapeByIfEnemyAhead = 5,
-    MoveTapeByIfSomethingAhead = 6,
-    MoveTapeByIfAllyAhead = 7,
-    MoveTapeByIfFoodAhead = 8,
-    MoveTapeByIfEmptyAhead = 9,
+    Move = 0,
+    RotateLeftBy = 1,
+    RotateRightBy = 2,
+    MoveTapeBy = 3,
+    MoveTapeByIfEnemyAhead = 4,
+    MoveTapeByIfSomethingAhead = 5,
+    MoveTapeByIfAllyAhead = 6,
+    MoveTapeByIfFoodAhead = 7,
+    MoveTapeByIfEmptyAhead = 8,
+    MoveTapeByEnergyAmount = 9,
     GiveBirth = 10,
     Bite = 11,
     // TODO: perhaps think of more commands
