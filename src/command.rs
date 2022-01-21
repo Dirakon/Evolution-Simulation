@@ -1,8 +1,5 @@
 pub use crate::operation::Operation;
 
-use num_derive::FromPrimitive;
-use num_traits::FromPrimitive;
-use rand::prelude::*;
 
 #[derive(Copy, Clone)]
 pub struct Command {
@@ -16,5 +13,8 @@ impl Command {
             operation: Operation::get_random_operation(),
             operation_descriptor: Operation::get_random_operation_descriptor(),
         }
+    }
+    pub fn compress_into_01_pair(&self)->(f32,f32){
+        (self.operation.compress_into_01_value(), Operation::compress_descriptor_into_01_value(self.operation_descriptor))
     }
 }

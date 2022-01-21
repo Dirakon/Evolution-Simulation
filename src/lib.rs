@@ -10,6 +10,7 @@ pub mod cell_type;
 pub mod cell;
 pub mod entity_action;
 pub mod entity_context;
+pub mod entity_egg;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

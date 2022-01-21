@@ -15,7 +15,7 @@ const TOTAL_DIRECTIONS: i32 = LENGTH as i32;
 
 impl Direction {
     pub fn get_rotated_direction(dir: &Direction, amount: i32) -> Direction {
-        Direction::number_to_direction((*dir as i32 + amount) % TOTAL_DIRECTIONS)
+        Direction::number_to_direction(((*dir) as i32 + amount) % TOTAL_DIRECTIONS)
     }
     pub fn get_random_direction() -> Direction {
         Direction::number_to_direction(rand::thread_rng().gen_range(0..TOTAL_DIRECTIONS))

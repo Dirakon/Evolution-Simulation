@@ -37,4 +37,10 @@ impl Operation {
     fn number_to_operation(number: i32) -> Operation {
         FromPrimitive::from_i32(number).expect("Tried to convert number to operation but failed")
     }
+    pub fn compress_into_01_value(&self)->f32{
+        (*self as i32 as f32)/(LAST_OPERATION_INDEX as f32)
+    }
+    pub fn compress_descriptor_into_01_value(descriptor:i32)->f32{
+        (descriptor as f32 - MIN_OPERATION_DESCRIPTOR as f32)/(MAX_OPERATION_DESCRIPTOR as f32-MIN_OPERATION_DESCRIPTOR as f32)
+    }
 }
